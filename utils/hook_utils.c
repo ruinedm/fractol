@@ -6,13 +6,14 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:43:37 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/09 03:57:22 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:46:50 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-typedef struct	s_vars {
+typedef struct	s_vars 
+{
 	void	*mlx;
 	void	*win;
 }				t_vars;
