@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/13 00:23:35 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/13 02:41:18 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 # include <stdlib.h>
 # include <math.h>
 
+# define MAX_ITERATIONS 200
+# define CONVERGE -1
+
+enum e_FRACTALS
+{
+	MANDELBROT,
+	JULIA
+};
 
 typedef struct s_complex
 {
@@ -32,19 +40,13 @@ typedef struct	s_fractal
 	int		endian;
 }				t_fractal;
 
-# define MAX_ITERATIONS 200
-
-enum e_METHODS
+typedef struct s_trgb
 {
-	DIVERGE,
-	CONVERGE
-};
-
-enum e_FRACTALS
-{
-	MANDELBROT,
-	JULIA
-};
+	unsigned char transparency;
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+} t_trgb;
 
 int analyze_z(int x, int y, int fractal_type);
 
