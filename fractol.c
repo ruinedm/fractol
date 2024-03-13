@@ -6,44 +6,38 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/09 01:11:13 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/13 00:35:27 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "fractol.h"
 
 
-void f()
-{
-	system("leaks fractol");
-}
-
-
-void better_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
+void better_mlx_pixel_put(t_fractal *data, int x, int y, unsigned int color)
 {
 	int offset;
-	void *to_color;
+	char *to_color;
 
 	offset = (y * data->line_length + x * (data->bits_per_pixel / 8));
 	to_color = data->addr + offset;
 	*(unsigned int *)to_color = color;
 }
 
-void draw_square(t_data *img)
+static void render_fractal(t_fractal *fractal, int fractal_type)
 {
-	int ref = 50;
-	int len = ref + 40;
-	int x = ref;
-	int y = ref;
+	int x;
+	int y;
 
-	while (y < len)
+	y = 0;
+	while (y < 800)
 	{
-		while (x < len * 2)
+		x = 0;
+		while (x < 800)
 		{
-			better_mlx_pixel_put(img, x, y , 0x00FF0000);
+			if(analyze_z(x, y, fractal_type) == CONVERGE)
+				better_mlx_pixel_put(fractal, x, y , 0xFFFFFF);
 			x++;
 		}
-		x = ref;
 		y++;
 	}
 }
@@ -54,14 +48,14 @@ int	main(void)
 	// atexit(f);
 	void *mlx;
 	void *window;
-	t_data img;
+	t_fractal img;
 	mlx = mlx_init();
 	if(!mlx)
 		return (0);
-	window = mlx_new_window(mlx, 1920, 1080, "The void calls");
-	img.img = mlx_new_image(mlx, 1920, 1080);
+	window = mlx_new_window(mlx, 800, 800, "The void calls");
+	img.img = mlx_new_image(mlx, 800, 800);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	draw_square(&img);
+	render_fractal(&img, JULIA);
 	mlx_put_image_to_window(mlx, window, img.img, 0, 0);
 	mlx_loop(mlx);
 }

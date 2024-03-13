@@ -2,7 +2,7 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 
 NAME = fractol
-SRC = fractol.c
+SRC = fractol.c utils/maths_utils.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = fractol.h
 
