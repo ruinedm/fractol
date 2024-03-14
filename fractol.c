@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/13 22:46:28 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 05:50:20 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ static void render_fractal(t_fractal *fractal)
 	int y;
 	int study_result;
 
-	printf("ZOOM FACTOR: %f\n", fractal->zoom_factor);
 	y = 0;
 	while (y < 800)
 	{
 		x = 0;
 		while (x < 800)
 		{
-			study_result = analyze_z(x, y, fractal->fractal_type, fractal->zoom_factor);
+			study_result = analyze_z(x, y, fractal);
 			if(study_result != CONVERGE)
 				color_divergence(fractal, x, y , study_result);
+			else
+				better_mlx_pixel_put(fractal, x, y, 0x000000);
 			x++;
 		}
 		y++;
@@ -66,33 +67,62 @@ int	key_hook(int keycode, t_fractal *fractal)
 	if(keycode == ESC)
 		exit(EXIT_SUCCESS); // ADD CLEARING AND SHIT
 	else if(keycode == ENTER)
+	{
 		fractal->zoom_factor = 1.0;
+		fractal->shift_margin = 0.5;
+		fractal->shift_x = 0.0;
+		fractal->shift_y = 0.0;
+	}
+	else if(keycode == UP)
+		fractal->shift_y -= fractal->shift_margin;
+	else if(keycode == DOWN)
+		fractal->shift_y += fractal->shift_margin;
+	else if(keycode == RIGHT)
+		fractal->shift_x += fractal->shift_margin;
+	else if(keycode == LEFT)
+		fractal->shift_x -= fractal->shift_margin;
+	else
+		return (1);
+	printf("SHIFT MARGIN: %f\n", fractal->shift_margin);
 	render_fractal(fractal);
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
+
 	return (0);
 }
 
 int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
 {
     if (mousecode == ZOOM_IN)
-		fractal->zoom_factor = fractal->zoom_factor * 1.2;
+	{
+		fractal->zoom_factor = fractal->zoom_factor + 1.1;
+		fractal->shift_margin = fractal->zoom_factor / 2;
+	}
 	else if (mousecode == ZOOM_OUT)
-		fractal->zoom_factor = fractal->zoom_factor / 1.2;
+	{
+		fractal->zoom_factor = fractal->zoom_factor - 1.1;
+		fractal->shift_margin = fractal->zoom_factor * 2;
+	}
+	else
+		return (1);
 	if (fractal->zoom_factor < 1.0)
+	{
 		fractal->zoom_factor = 1.0;
+		fractal->shift_margin = 0.5;
+	}
 	render_fractal(fractal);
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
     return (0);
 }
-
-
 
 int	main(void)
 {
 	t_fractal img;
 
 	img.zoom_factor = 1.0;
+	img.shift_margin = 0.5;
 	img.fractal_type = JULIA;
+	img.shift_x = 0.0;
+	img.shift_y = 0.0;
 	img.mlx = mlx_init();
 	if(!img.mlx)
 		return (0);
