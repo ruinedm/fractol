@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 21:11:04 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 22:51:48 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	main(int ac, char **av)
 {
 	t_fractal fractal;
 
-	if(ac < 2 || ac > 4)
+	if(ac < 2 || ac > 4 || ac == 3)
 		error_handler();
 	fractal.shift_margin = 0.5;
 	fractal.zoom_factor = 1.0;
@@ -129,8 +129,10 @@ int	main(int ac, char **av)
 			error_handler();
 		fractal.fractal_type = JULIA;
 		fractal.julia_real = atof(av[2]);
-		fractal.julia_immaginary = atof(av[3]);
+		fractal.julia_imaginary = atof(av[3]);
 	}
+	else if(!ft_strcmp(av[1], "tricorn"))
+		fractal.fractal_type = TRICORN;
 	else
 		error_handler();
 	fractal.shift_x = 0.0;
@@ -138,7 +140,7 @@ int	main(int ac, char **av)
 	fractal.mlx = mlx_init();
 	if(!fractal.mlx)
 		error_handler();
-	fractal.win = mlx_new_window(fractal.mlx, 800, 800, "The void calls");
+	fractal.win = mlx_new_window(fractal.mlx, 800, 800, av[1]);
 	fractal.img = mlx_new_image(fractal.mlx, 800, 800);
 	fractal.addr = mlx_get_data_addr(fractal.img, &fractal.bits_per_pixel, &fractal.line_length, &fractal.endian);
 	render_fractal(&fractal);

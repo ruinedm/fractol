@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 20:26:54 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 22:50:47 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 # include <stdlib.h>
 # include <math.h>
 
-# define MAX_ITERATIONS 200
+# define MAX_ITERATIONS 100
 # define CONVERGE -1
+
 enum e_FRACTALS
 {
 	MANDELBROT,
-	JULIA
+	JULIA,
+	TRICORN
 };
 
 typedef struct s_complex
@@ -39,7 +41,7 @@ typedef struct	s_fractal
 	double	zoom_factor;
 	double	shift_margin;
 	double	julia_real;
-	double	julia_immaginary;
+	double	julia_imaginary;
 	void	*mlx;
 	void	*win;
 	void	*img;
