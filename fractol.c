@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 21:09:26 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:11:04 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	key_hook(int keycode, t_fractal *fractal)
 
 	return (0);
 }
+
 int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
 {
 	double old_shift_margin;
@@ -127,6 +128,8 @@ int	main(int ac, char **av)
 		if(ac != 4)
 			error_handler();
 		fractal.fractal_type = JULIA;
+		fractal.julia_real = atof(av[2]);
+		fractal.julia_immaginary = atof(av[3]);
 	}
 	else
 		error_handler();
