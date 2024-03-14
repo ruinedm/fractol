@@ -2,7 +2,7 @@ CC = cc
 FLAGS = 
 
 NAME = fractol
-SRC = fractol.c utils/maths_utils.c utils/color_utils.c
+SRC = fractol.c utils/maths_utils.c utils/color_utils.c utils/general_utils.c utils/str_utils.c
 OBJ = $(SRC:.c=.o)
 INCLUDE = fractol.h
 

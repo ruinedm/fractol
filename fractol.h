@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 05:44:52 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:26:54 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef struct	s_fractal
 	int		fractal_type;
 	double	zoom_factor;
 	double	shift_margin;
+	double	julia_real;
+	double	julia_immaginary;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -72,7 +74,14 @@ typedef struct s_trgb
 	unsigned char blue;
 } t_trgb;
 
+// GENERAL UTILS
+void	error_handler();
+
 int analyze_z(int x, int y, t_fractal *fractal);
+
+// STR UTILS
+int	ft_strcmp(const char *s1, const char *s2);
+
 
 // COLOR UTILS
 int create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);

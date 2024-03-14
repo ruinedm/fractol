@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 05:50:20 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/14 21:09:26 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,55 +83,64 @@ int	key_hook(int keycode, t_fractal *fractal)
 		fractal->shift_x -= fractal->shift_margin;
 	else
 		return (1);
-	printf("SHIFT MARGIN: %f\n", fractal->shift_margin);
 	render_fractal(fractal);
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 
 	return (0);
 }
-
 int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
 {
+	double old_shift_margin;
+
+	old_shift_margin = fractal->shift_margin;
     if (mousecode == ZOOM_IN)
-	{
-		fractal->zoom_factor = fractal->zoom_factor + 1.1;
-		fractal->shift_margin = fractal->zoom_factor / 2;
-	}
-	else if (mousecode == ZOOM_OUT)
-	{
-		fractal->zoom_factor = fractal->zoom_factor - 1.1;
-		fractal->shift_margin = fractal->zoom_factor * 2;
-	}
-	else
-		return (1);
-	if (fractal->zoom_factor < 1.0)
-	{
-		fractal->zoom_factor = 1.0;
-		fractal->shift_margin = 0.5;
-	}
-	render_fractal(fractal);
-	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
+    {
+        fractal->zoom_factor *= 1.1;
+        fractal->shift_margin /= 1.1;
+    }
+    else if (mousecode == ZOOM_OUT)
+    {
+        fractal->zoom_factor /= 1.1;
+        fractal->shift_margin *= 1.1;
+    }
+    else
+        return (1);
+    fractal->shift_x -= fractal->shift_margin - old_shift_margin;
+    fractal->shift_y -= fractal->shift_margin - old_shift_margin;
+    render_fractal(fractal);
+    mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
     return (0);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
-	t_fractal img;
+	t_fractal fractal;
 
-	img.zoom_factor = 1.0;
-	img.shift_margin = 0.5;
-	img.fractal_type = JULIA;
-	img.shift_x = 0.0;
-	img.shift_y = 0.0;
-	img.mlx = mlx_init();
-	if(!img.mlx)
-		return (0);
-	img.win = mlx_new_window(img.mlx, 800, 800, "The void calls");
-	img.img = mlx_new_image(img.mlx, 800, 800);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	render_fractal(&img);
-	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-	mlx_key_hook(img.win, key_hook, &img);
-	mlx_mouse_hook(img.win, mouse_hook, &img);
-	mlx_loop(img.mlx);
+	if(ac < 2 || ac > 4)
+		error_handler();
+	fractal.shift_margin = 0.5;
+	fractal.zoom_factor = 1.0;
+	if(!ft_strcmp(av[1], "mandelbrot"))
+		fractal.fractal_type = MANDELBROT;
+	else if(!ft_strcmp(av[1], "julia"))
+	{
+		if(ac != 4)
+			error_handler();
+		fractal.fractal_type = JULIA;
+	}
+	else
+		error_handler();
+	fractal.shift_x = 0.0;
+	fractal.shift_y = 0.0;
+	fractal.mlx = mlx_init();
+	if(!fractal.mlx)
+		error_handler();
+	fractal.win = mlx_new_window(fractal.mlx, 800, 800, "The void calls");
+	fractal.img = mlx_new_image(fractal.mlx, 800, 800);
+	fractal.addr = mlx_get_data_addr(fractal.img, &fractal.bits_per_pixel, &fractal.line_length, &fractal.endian);
+	render_fractal(&fractal);
+	mlx_put_image_to_window(fractal.mlx, fractal.win, fractal.img, 0, 0);
+	mlx_key_hook(fractal.win, key_hook, &fractal);
+	mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
+	mlx_loop(fractal.mlx);
 }
