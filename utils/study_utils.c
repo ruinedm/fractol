@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maths_utils.c                                      :+:      :+:    :+:   */
+/*   study_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 00:36:40 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 05:45:17 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,26 @@ static void convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal)
 {
     c->real = (float)x / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_x;
     c->imaginary = (float)y / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_y;
+}
+
+static int iterate_and_calculate(t_complex z, t_complex c, t_fractal *fractal)
+{
+    int count;
+    double hold;
+    
+    count = 0;
+    while(count < MAX_ITERATIONS)
+    { 
+        hold = z.real;
+        z.real = z.real * z.real - z.imaginary * z.imaginary + c.real;
+        z.imaginary = 2 * hold * z.imaginary + c.imaginary;
+        if(fractal->fractal_type == TRICORN)
+            z.imaginary *= -1;
+        if (isinf(z.real) || isinf(z.imaginary))
+            return (count);
+        count++;
+    }
+    return (CONVERGE);
 }
 
 int analyze_z(int x, int y, t_fractal *fractal)
@@ -39,16 +59,5 @@ int analyze_z(int x, int y, t_fractal *fractal)
         c.imaginary = fractal->julia_imaginary;
         convert_to_complex(x, y ,&z, fractal);
     }
-    while(count < MAX_ITERATIONS)
-    { 
-        hold = z.real;
-        z.real = z.real * z.real - z.imaginary * z.imaginary + c.real;
-        z.imaginary = 2 * hold * z.imaginary + c.imaginary;
-        if(fractal->fractal_type == TRICORN)
-            z.imaginary *= -1;
-        if (isinf(z.real) || isinf(z.imaginary))
-            return (count);
-        count++;
-    }
-    return (CONVERGE);
+    return (iterate_and_calculate(z, c, fractal));
 }

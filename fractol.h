@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 04:39:35 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 05:41:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <math.h>
 #include <unistd.h>
 
-# define MAX_ITERATIONS 100
+# define MAX_ITERATIONS 150
 # define CONVERGE -1
 # define DestroyNotify 17
+
 enum e_FRACTALS
 {
 	MANDELBROT,
@@ -65,7 +66,9 @@ enum e_KEY_CODES
 	UP=126,
 	DOWN=125,
 	RIGHT=124,
-	LEFT=123
+	LEFT=123,
+	PLUS=24,
+	MINUS=27
 };
 
 
@@ -85,6 +88,13 @@ int analyze_z(int x, int y, t_fractal *fractal);
 // STR UTILS
 int	ft_strcmp(const char *s1, const char *s2);
 
+// HOOK UTILS
+int	key_hook(int keycode, t_fractal *fractal); 
+int mouse_hook(int mousecode, int x, int y, t_fractal *fractal);
+int button_close(t_fractal *fractal);
+
+//RENDER UTILS
+void render_fractal(t_fractal *fractal);
 
 // COLOR UTILS
 int create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);
