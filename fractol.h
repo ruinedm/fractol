@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:41:24 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 05:49:48 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ enum e_KEY_CODES
 	MINUS=27
 };
 
+enum e_ERROR_FALGS
+{
+	MLX_ERROR,
+	INPUT_ERROR
+};
 
 typedef struct s_trgb
 {
@@ -81,7 +86,7 @@ typedef struct s_trgb
 } t_trgb;
 
 // GENERAL UTILS
-void	error_handler();
+void	error_handler(int flag);
 
 int analyze_z(int x, int y, t_fractal *fractal);
 
