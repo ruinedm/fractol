@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 22:50:47 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 04:39:35 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+#include <unistd.h>
 
 # define MAX_ITERATIONS 100
 # define CONVERGE -1
-
+# define DestroyNotify 17
 enum e_FRACTALS
 {
 	MANDELBROT,

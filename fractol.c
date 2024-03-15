@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 22:51:48 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 04:45:46 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void color_divergence(t_fractal *fractal, int x, int y, int divergence)
 	int new_color;
     t_trgb hold;
 
-    base_color = create_trgb(0, 0, 255, 255);
+    base_color = create_trgb(0, 255, 255, 255);
 	scaled_divergence = (divergence * 255) / MAX_ITERATIONS;
     hold.red = (get_r(base_color) * scaled_divergence) / 255;
     hold.green = (get_g(base_color) * scaled_divergence) / 255;
@@ -39,6 +39,12 @@ static void color_divergence(t_fractal *fractal, int x, int y, int divergence)
     better_mlx_pixel_put(fractal, x, y, new_color);
 }
 
+int button_close(t_fractal *fractal)
+{
+	mlx_destroy_image(fractal->mlx, fractal->win);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
 static void render_fractal(t_fractal *fractal)
 {
 	int x;
@@ -65,7 +71,7 @@ static void render_fractal(t_fractal *fractal)
 int	key_hook(int keycode, t_fractal *fractal)
 {
 	if(keycode == ESC)
-		exit(EXIT_SUCCESS); // ADD CLEARING AND SHIT
+		button_close(fractal);
 	else if(keycode == ENTER)
 	{
 		fractal->zoom_factor = 1.0;
@@ -113,6 +119,7 @@ int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
     return (0);
 }
 
+
 int	main(int ac, char **av)
 {
 	t_fractal fractal;
@@ -145,7 +152,9 @@ int	main(int ac, char **av)
 	fractal.addr = mlx_get_data_addr(fractal.img, &fractal.bits_per_pixel, &fractal.line_length, &fractal.endian);
 	render_fractal(&fractal);
 	mlx_put_image_to_window(fractal.mlx, fractal.win, fractal.img, 0, 0);
-	mlx_key_hook(fractal.win, key_hook, &fractal);
+	mlx_hook(fractal.win, DestroyNotify, 0, button_close, &fractal);
+	mlx_key_hook(fractal.win, key_hook, &fractal); 
 	mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
 	mlx_loop(fractal.mlx);
+	return (0);
 }

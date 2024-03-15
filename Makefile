@@ -17,6 +17,7 @@ $(OBJ): $(INCLUDE)
 %.o: %.c
 	@($(CC) $(FLAGS) -c $< -o $@)
 	@echo "Compiled $<"
+
 clean:
 	@rm -f $(OBJ)
 	@echo "Cleaned object files"

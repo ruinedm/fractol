@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/14 22:51:34 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 00:36:40 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 
 static void convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal)
 {
-    c->real = (float)x / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_x; // + left // - right
-    c->imaginary = (float)y / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_y; // + up // - down
+    c->real = (float)x / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_x;
+    c->imaginary = (float)y / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_y;
 }
-
-float complex_abs(t_complex *z) 
-{
-    return sqrt(z->real * z->real + z->imaginary * z->imaginary);
-}
-
 
 int analyze_z(int x, int y, t_fractal *fractal)
 {
@@ -52,7 +46,7 @@ int analyze_z(int x, int y, t_fractal *fractal)
         z.imaginary = 2 * hold * z.imaginary + c.imaginary;
         if(fractal->fractal_type == TRICORN)
             z.imaginary *= -1;
-        if (sqrt(z.real * z.real + z.imaginary * z.imaginary) > 4.0)
+        if (isinf(z.real) || isinf(z.imaginary))
             return (count);
         count++;
     }
