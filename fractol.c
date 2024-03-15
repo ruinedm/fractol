@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:51:12 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:08:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void setup_fractol_struct(int ac, char **av, t_fractal *fractal)
 		if(ac != 4)
 			error_handler(INPUT_ERROR);
 		fractal->fractal_type = JULIA;
-		fractal->julia_real = atof(av[2]);
-		fractal->julia_imaginary = atof(av[3]);
+		fractal->julia_real = ft_atof(av[2]);
+		fractal->julia_imaginary = ft_atof(av[3]);
 	}
 	else if(!ft_strcmp(av[1], "tricorn"))
 		fractal->fractal_type = TRICORN;

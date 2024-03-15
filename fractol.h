@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:49:48 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:14:44 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-#include <unistd.h>
+# include <unistd.h>
+# include <float.h>
 
 # define MAX_ITERATIONS 150
 # define CONVERGE -1
 # define DestroyNotify 17
-
+# define ATOF_THRESHOLD 0.000001
 enum e_FRACTALS
 {
 	MANDELBROT,
@@ -86,6 +87,7 @@ typedef struct s_trgb
 } t_trgb;
 
 // GENERAL UTILS
+size_t	ft_strlen(char *str);
 void	error_handler(int flag);
 
 int analyze_z(int x, int y, t_fractal *fractal);
@@ -101,6 +103,8 @@ int button_close(t_fractal *fractal);
 //RENDER UTILS
 void render_fractal(t_fractal *fractal);
 
+// CONVERSTION UTILS
+double	ft_atof(char *str);
 // COLOR UTILS
 int create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b);
 unsigned char	get_t(int trgb);
