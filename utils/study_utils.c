@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:45:17 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 05:53:23 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int analyze_z(int x, int y, t_fractal *fractal)
     t_complex c;
     t_complex z;
     int count;
-    double hold;
 
     count = 0;
     if (fractal->fractal_type == MANDELBROT || fractal->fractal_type == TRICORN)
@@ -59,5 +58,7 @@ int analyze_z(int x, int y, t_fractal *fractal)
         c.imaginary = fractal->julia_imaginary;
         convert_to_complex(x, y ,&z, fractal);
     }
+    else
+        return (-11);
     return (iterate_and_calculate(z, c, fractal));
 }

@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:37:26 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:40:40 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 05:54:47 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
         fractal->shift_margin *= 1.1;
     }
     else
-        return (1);
+        return (x * y);
     fractal->shift_x -= fractal->shift_margin - old_shift_margin;
     fractal->shift_y -= fractal->shift_margin - old_shift_margin;
     render_fractal(fractal);
