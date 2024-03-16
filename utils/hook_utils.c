@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:37:26 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/16 01:57:24 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:06:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int button_close(t_fractal *fractal)
 void	reset_struct(t_fractal *fractal)
 {
 		fractal->zoom_factor = 1.0;
-		fractal->shift_margin = 0.5;
 		fractal->shift_x = 0.0;
 		fractal->shift_y = 0.0;
 		fractal->random_flag = 0;

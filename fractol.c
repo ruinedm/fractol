@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 23:57:44 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:06:12 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void setup_fractol_struct(int ac, char **av, t_fractal *fractal)
 {
 	if(ac < 2 || ac > 4 || ac == 3)
 		error_handler(INPUT_ERROR);
-	fractal->shift_margin = 0.5;
 	fractal->zoom_factor = 1.0;
 	fractal->random_flag = 0;
 	fractal->random_color = 1.0;

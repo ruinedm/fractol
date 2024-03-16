@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/16 00:13:37 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:22:30 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct	s_fractal
 	double	shift_x;
 	double	shift_y;
 	double	zoom_factor;
-	double	shift_margin;
 	double	julia_real;
 	double	julia_imaginary;
 	double	random_color;
@@ -97,7 +96,7 @@ int analyze_z(int x, int y, t_fractal *fractal);
 int	ft_strcmp(const char *s1, const char *s2);
 
 // HOOK UTILS
-int	key_hook(int keycode, t_fractal *fractal); 
+int	key_hook(int keycode, t_fractal *fractal);
 int mouse_hook(int mousecode, int x, int y, t_fractal *fractal);
 int button_close(t_fractal *fractal);
 
