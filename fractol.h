@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 21:14:44 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 23:58:18 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <unistd.h>
 # include <float.h>
 
-# define MAX_ITERATIONS 150
+# define MAX_ITERATIONS 100
 # define CONVERGE -1
 # define DestroyNotify 17
-# define ATOF_THRESHOLD 0.000001
+
+
 enum e_FRACTALS
 {
 	MANDELBROT,
@@ -40,11 +41,13 @@ typedef struct	s_fractal
 {
 	double	shift_x;
 	double	shift_y;
-	int		fractal_type;
 	double	zoom_factor;
 	double	shift_margin;
 	double	julia_real;
 	double	julia_imaginary;
+	double	random_color;
+	int		fractal_type;
+	int		random_flag;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -68,8 +71,7 @@ enum e_KEY_CODES
 	DOWN=125,
 	RIGHT=124,
 	LEFT=123,
-	PLUS=24,
-	MINUS=27
+	SPACE=49
 };
 
 enum e_ERROR_FALGS

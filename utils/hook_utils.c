@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:37:26 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:54:47 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:00:17 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,27 @@ int button_close(t_fractal *fractal)
 	return (0);
 }
 
+void	reset_struct(t_fractal *fractal)
+{
+		fractal->zoom_factor = 1.0;
+		fractal->shift_margin = 0.5;
+		fractal->shift_x = 0.0;
+		fractal->shift_y = 0.0;
+		fractal->random_flag = 0;
+		fractal->random_color = 1.0;
+}
 
 int	key_hook(int keycode, t_fractal *fractal)
 {
 	if(keycode == ESC)
 		button_close(fractal);
-	else if(keycode == ENTER)
+	else if(keycode == SPACE)
 	{
-		fractal->zoom_factor = 1.0;
-		fractal->shift_margin = 0.5;
-		fractal->shift_x = 0.0;
-		fractal->shift_y = 0.0;
+		fractal->random_color += 10;
+		fractal->random_flag = 1;
 	}
+	else if(keycode == ENTER)
+		reset_struct(fractal);
 	else if(keycode == UP)
 		fractal->shift_y -= fractal->shift_margin;
 	else if(keycode == DOWN)

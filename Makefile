@@ -1,5 +1,5 @@
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -Ofast
 
 NAME = fractol
 SRC = fractol.c utils/study_utils.c utils/color_utils.c utils/general_utils.c utils/str_utils.c utils/hook_utils.c utils/drawing_utils.c utils/conversion_utils.c

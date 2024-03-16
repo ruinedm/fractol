@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:39:03 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:41:19 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/15 23:57:21 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,15 @@ static void color_divergence(t_fractal *fractal, int x, int y, int divergence)
 
     base_color = create_trgb(0, 255, 255, 255);
 	scaled_divergence = (divergence * 255) / MAX_ITERATIONS;
-    hold.red = (get_r(base_color) * scaled_divergence) / 255;
-    hold.green = (get_g(base_color) * scaled_divergence) / 255;
-   	hold.blue = (get_b(base_color) * scaled_divergence) / 255;
+    hold.red = (get_r(base_color) * scaled_divergence * fractal->random_color) / 255;
+    hold.green = (get_g(base_color) * scaled_divergence * fractal->random_color) / 255;
+   	hold.blue = (get_b(base_color) * scaled_divergence * fractal->random_color) / 255;
+	if(fractal->random_flag)
+	{
+		hold.red *= 3;
+		hold.green *= 5;
+		hold.blue *= 7;
+	}
     new_color = create_trgb(0, hold.red, hold.green, hold.blue);
     better_mlx_pixel_put(fractal, x, y, new_color);
 }
