@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 23:58:18 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:13:37 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
-# include <float.h>
 
 # define MAX_ITERATIONS 100
 # define CONVERGE -1

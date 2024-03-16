@@ -6,12 +6,11 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:37:26 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/16 00:00:17 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:57:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-
 
 int button_close(t_fractal *fractal)
 {
@@ -42,13 +41,13 @@ int	key_hook(int keycode, t_fractal *fractal)
 	else if(keycode == ENTER)
 		reset_struct(fractal);
 	else if(keycode == UP)
-		fractal->shift_y -= fractal->shift_margin;
+		fractal->shift_y -= 1.1 / fractal->zoom_factor;
 	else if(keycode == DOWN)
-		fractal->shift_y += fractal->shift_margin;
+		fractal->shift_y += 1.1 / fractal->zoom_factor;
 	else if(keycode == RIGHT)
-		fractal->shift_x += fractal->shift_margin;
+		fractal->shift_x += 1.1 / fractal->zoom_factor;
 	else if(keycode == LEFT)
-		fractal->shift_x -= fractal->shift_margin;
+		fractal->shift_x -= 1.1 / fractal->zoom_factor;
 	else
 		return (1);
 	render_fractal(fractal);
@@ -58,23 +57,12 @@ int	key_hook(int keycode, t_fractal *fractal)
 
 int mouse_hook(int mousecode, int x, int y, t_fractal *fractal)
 {
-	double old_shift_margin;
-
-	old_shift_margin = fractal->shift_margin;
     if (mousecode == ZOOM_IN)
-    {
         fractal->zoom_factor *= 1.1;
-        fractal->shift_margin /= 1.1;
-    }
     else if (mousecode == ZOOM_OUT)
-    {
         fractal->zoom_factor /= 1.1;
-        fractal->shift_margin *= 1.1;
-    }
     else
         return (x * y);
-    fractal->shift_x -= fractal->shift_margin - old_shift_margin;
-    fractal->shift_y -= fractal->shift_margin - old_shift_margin;
     render_fractal(fractal);
     mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
     return (0);

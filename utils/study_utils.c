@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 05:53:23 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:52:18 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static void convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal)
 {
-    c->real = (float)x / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_x;
-    c->imaginary = (float)y / (200.0 * fractal->zoom_factor) - 2.0 + fractal->shift_y;
+    c->real = ((double)x - 400.0) / (200.0 * fractal->zoom_factor) + fractal->shift_x;
+    c->imaginary = (((double)y - 400.0) / (200.0 * fractal->zoom_factor)) + fractal->shift_y;
 }
 
 static int iterate_and_calculate(t_complex z, t_complex c, t_fractal *fractal)

@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 19:45:43 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/15 21:14:53 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:26:52 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int is_valid(char *str)
 		return (0);
 	if(str[i] == '-' || str[i] == '+')
 		i++;
+	if(!(str[i] >= '0' && str[i] <= '9'))
+		return (0);
 	while(str[i])
 	{
 		if(str[i] == '.')
@@ -77,6 +79,8 @@ double str_to_double(char *str, int i, double sign)
 		i++;
 	}
 	i++;
+	if(!(str[i] >= '0' && str[i] <= '9'))
+		error_handler(INPUT_ERROR);
 	while(str[i] >= '0' && str[i] <= '9')
 	{
 		check = check + (str[i] - '0') * divider;
@@ -96,10 +100,7 @@ double	ft_atof(char *str)
 	i = 0;
 	sign = 1.0;
 	if(!is_valid(str))
-	{
-		printf("Not valid\n"); 
-		exit(EXIT_FAILURE);
-	}
+		error_handler(INPUT_ERROR);
 	if(is_zero(str))
 		return (result);
 	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))

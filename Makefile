@@ -25,3 +25,5 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@echo "Cleaned executable"
+
+re: fclean all
