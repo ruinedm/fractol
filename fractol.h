@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/16 02:22:30 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/19 20:14:51 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define MAX_ITERATIONS 100
 # define CONVERGE -1
 # define DestroyNotify 17
+
 
 
 enum e_FRACTALS
@@ -38,6 +39,8 @@ typedef struct s_complex
 
 typedef struct	s_fractal
 {
+	t_complex start;
+	t_complex end;
 	double	shift_x;
 	double	shift_y;
 	double	zoom_factor;
@@ -70,6 +73,7 @@ enum e_KEY_CODES
 	RIGHT=124,
 	LEFT=123,
 	SPACE=49
+
 };
 
 enum e_ERROR_FALGS
@@ -89,9 +93,10 @@ typedef struct s_trgb
 // GENERAL UTILS
 size_t	ft_strlen(char *str);
 void	error_handler(int flag);
+void	reset_struct(t_fractal *fractal);
 
 int analyze_z(int x, int y, t_fractal *fractal);
-
+void convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal);
 // STR UTILS
 int	ft_strcmp(const char *s1, const char *s2);
 
