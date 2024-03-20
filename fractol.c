@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:29:38 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 06:24:49 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ static void	init_mlx(t_fractal *fractal, char **av)
 		error_handler(MLX_ERROR);
 	fractal->img = mlx_new_image(fractal->mlx, 800, 800);
 	if (!fractal->img)
+	{
+		mlx_destroy_window(fractal->mlx, fractal->win);
 		error_handler(MLX_ERROR);
+	}
 	fractal->addr = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
 			&fractal->line_length, &fractal->endian);
 	if (!fractal->addr)
 	{
-		mlx_destroy_image(fractal->mlx, fractal->win);
+		mlx_destroy_image(fractal->mlx, fractal->img);
+		mlx_destroy_window(fractal->mlx, fractal->win);
 		error_handler(MLX_ERROR);
 	}
 }

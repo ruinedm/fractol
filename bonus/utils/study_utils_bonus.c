@@ -6,7 +6,7 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:38:37 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 06:16:00 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	analyze_z(int x, int y, t_fractal *fractal)
 		c.real += fractal->shift_x;
 		c.imaginary += fractal->shift_y;
 	}
-	else if (fractal->fractal_type == JULIA)
+	else
 	{
 		c.real = fractal->julia_real;
 		c.imaginary = fractal->julia_imaginary;
@@ -66,7 +66,5 @@ int	analyze_z(int x, int y, t_fractal *fractal)
 		z.real += fractal->shift_x;
 		z.imaginary += fractal->shift_y;
 	}
-	else
-		return (-11);
 	return (iterate_and_calculate(z, c, fractal));
 }
