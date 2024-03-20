@@ -6,24 +6,23 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 03:35:02 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/12 20:10:06 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:25:23 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
+int	create_trgb(unsigned char t, unsigned char r, unsigned char g,
+		unsigned char b)
 {
-    unsigned char trgb[4];
-    
-    trgb[0] = t;
-    trgb[1] = r;
-    trgb[2] = g;
-    trgb[3] = b;
+	unsigned char	trgb[4];
 
-    return(*(int *)trgb);
+	trgb[0] = t;
+	trgb[1] = r;
+	trgb[2] = g;
+	trgb[3] = b;
+	return (*(int *)trgb);
 }
-
 
 unsigned char	get_t(int trgb)
 {

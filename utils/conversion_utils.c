@@ -6,32 +6,30 @@
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 19:45:43 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/16 00:26:52 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:25:52 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-// 0.000000
-
-static int is_valid(char *str)
+static int	is_valid(char *str)
 {
-	int p_count;
-	int i;
+	int	p_count;
+	int	i;
 
 	i = 0;
 	p_count = 0;
-	if(!ft_strlen(str))
+	if (!ft_strlen(str))
 		return (0);
-	if(str[i] == '-' || str[i] == '+')
+	if (str[i] == '-' || str[i] == '+')
 		i++;
-	if(!(str[i] >= '0' && str[i] <= '9'))
+	if (!(str[i] >= '0' && str[i] <= '9'))
 		return (0);
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '.')
+		if (str[i] == '.')
 		{
-			if(!p_count)
+			if (!p_count)
 				p_count++;
 			else
 				return (0);
@@ -43,10 +41,10 @@ static int is_valid(char *str)
 	return (1);
 }
 
-static int is_zero(char *str)
+static int	is_zero(char *str)
 {
-	int count;
-	int i;
+	int	count;
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] == '0')
@@ -66,10 +64,10 @@ static int is_zero(char *str)
 	return (0);
 }
 
-double str_to_double(char *str, int i, double sign)
+double	str_to_double(char *str, int i, double sign)
 {
-	long double check;
-	long double divider;
+	long double	check;
+	long double	divider;
 
 	check = 0.0;
 	divider = 0.1;
@@ -78,10 +76,12 @@ double str_to_double(char *str, int i, double sign)
 		check = check * 10 + (str[i] - '0');
 		i++;
 	}
+	if (!str[i])
+		return ((double)check * sign);
 	i++;
-	if(!(str[i] >= '0' && str[i] <= '9'))
+	if (!(str[i] >= '0' && str[i] <= '9'))
 		error_handler(INPUT_ERROR);
-	while(str[i] >= '0' && str[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
 		check = check + (str[i] - '0') * divider;
 		divider /= 10;
@@ -93,15 +93,15 @@ double str_to_double(char *str, int i, double sign)
 double	ft_atof(char *str)
 {
 	size_t	i;
-	double sign;
+	double	sign;
 	double	result;
 
 	result = 0.00000;
 	i = 0;
 	sign = 1.0;
-	if(!is_valid(str))
+	if (!is_valid(str))
 		error_handler(INPUT_ERROR);
-	if(is_zero(str))
+	if (is_zero(str))
 		return (result);
 	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
 		i++;
