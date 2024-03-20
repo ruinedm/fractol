@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:52:59 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:29:38 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:38:41 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 
 static void	setup_fractol_struct(int ac, char **av, t_fractal *fractal)
 {
@@ -26,6 +26,8 @@ static void	setup_fractol_struct(int ac, char **av, t_fractal *fractal)
 		fractal->julia_real = ft_atof(av[2]);
 		fractal->julia_imaginary = ft_atof(av[3]);
 	}
+	else if (!ft_strcmp(av[1], "tricorn"))
+		fractal->fractal_type = TRICORN;
 	else
 		error_handler(INPUT_ERROR);
 	reset_struct(fractal);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_utils.c                                    :+:      :+:    :+:   */
+/*   general_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 19:48:45 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:50:58 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:38:32 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../fractol_bonus.h"
 
 static void	print_error(char *str)
 {
@@ -37,6 +37,8 @@ size_t	ft_strlen(char *str)
 void	reset_struct(t_fractal *fractal)
 {
 	fractal->zoom_factor = 1.0;
+	fractal->random_flag = 0;
+	fractal->random_color = 1.0;
 	fractal->start.real = -2;
 	fractal->end.real = 2;
 	fractal->start.imaginary = 2;
@@ -55,6 +57,7 @@ void	error_handler(int flag)
 		print_error("Please use one of the following options:\n");
 		print_error("./fractol mandelbrot\n");
 		print_error("./fractol julia (2 numerical options)\n");
+		print_error("./fractol tricorn\n");
 	}
 	exit(EXIT_FAILURE);
 }

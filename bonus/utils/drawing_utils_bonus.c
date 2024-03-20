@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_utils.c                                    :+:      :+:    :+:   */
+/*   drawing_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 05:39:03 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:50:30 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:38:24 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../fractol_bonus.h"
 
 static void	better_mlx_pixel_put(t_fractal *data, int x, int y,
 		unsigned int color)
@@ -32,12 +32,18 @@ static void	color_divergence(t_fractal *fractal, int x, int y, int divergence)
 
 	base_color = create_trgb(0, 255, 255, 255);
 	scaled_divergence = (divergence * 255) / MAX_ITERATIONS;
-	hold.red = (get_r(base_color) * scaled_divergence)
+	hold.red = (get_r(base_color) * scaled_divergence * fractal->random_color)
 		/ 255;
-	hold.green = (get_g(base_color) * scaled_divergence)
+	hold.green = (get_g(base_color) * scaled_divergence * fractal->random_color)
 		/ 255;
-	hold.blue = (get_b(base_color) * scaled_divergence)
+	hold.blue = (get_b(base_color) * scaled_divergence * fractal->random_color)
 		/ 255;
+	if (fractal->random_flag)
+	{
+		hold.red *= 3;
+		hold.green *= 5;
+		hold.blue *= 7;
+	}
 	new_color = create_trgb(0, hold.red, hold.green, hold.blue);
 	better_mlx_pixel_put(fractal, x, y, new_color);
 }

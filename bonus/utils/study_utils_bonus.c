@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   study_utils.c                                      :+:      :+:    :+:   */
+/*   study_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 21:17:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:50:11 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:38:37 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../fractol_bonus.h"
 
 void	convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal)
 {
@@ -19,12 +19,11 @@ void	convert_to_complex(int x, int y, t_complex *c, t_fractal *fractal)
 	scale.real = (fractal->end.real - fractal->start.real) / 800.0;
 	scale.imaginary = (fractal->end.imaginary - fractal->start.imaginary)
 		/ 800.0;
-	c->real = (fractal->start.real + scale.real * x) * fractal->zoom_factor;
-	c->imaginary = (fractal->start.imaginary + scale.imaginary * y)
-		* fractal->zoom_factor;
+	c->real = fractal->start.real + scale.real * x;
+	c->imaginary = fractal->start.imaginary + scale.imaginary * y;
 }
 
-static int	iterate_and_calculate(t_complex z, t_complex c)
+static int	iterate_and_calculate(t_complex z, t_complex c, t_fractal *fractal)
 {
 	int		count;
 	double	hold;
@@ -35,6 +34,8 @@ static int	iterate_and_calculate(t_complex z, t_complex c)
 		hold = z.real;
 		z.real = z.real * z.real - z.imaginary * z.imaginary + c.real;
 		z.imaginary = 2 * hold * z.imaginary + c.imaginary;
+		if (fractal->fractal_type == TRICORN)
+			z.imaginary *= -1;
 		if (isinf(z.real) || isinf(z.imaginary))
 			return (count);
 		count++;
@@ -49,7 +50,7 @@ int	analyze_z(int x, int y, t_fractal *fractal)
 	int			count;
 
 	count = 0;
-	if (fractal->fractal_type == MANDELBROT)
+	if (fractal->fractal_type == MANDELBROT || fractal->fractal_type == TRICORN)
 	{
 		z.real = 0.0;
 		z.imaginary = 0.0;
@@ -57,7 +58,7 @@ int	analyze_z(int x, int y, t_fractal *fractal)
 		c.real += fractal->shift_x;
 		c.imaginary += fractal->shift_y;
 	}
-	else
+	else if (fractal->fractal_type == JULIA)
 	{
 		c.real = fractal->julia_real;
 		c.imaginary = fractal->julia_imaginary;
@@ -65,5 +66,7 @@ int	analyze_z(int x, int y, t_fractal *fractal)
 		z.real += fractal->shift_x;
 		z.imaginary += fractal->shift_y;
 	}
-	return (iterate_and_calculate(z, c));
+	else
+		return (-11);
+	return (iterate_and_calculate(z, c, fractal));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mboukour <mboukour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 16:53:05 by mboukour          #+#    #+#             */
-/*   Updated: 2024/03/20 01:35:32 by mboukour         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:38:48 by mboukour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ enum				e_FRACTALS
 {
 	MANDELBROT,
 	JULIA,
+	TRICORN
 };
 
 typedef struct s_complex
@@ -63,7 +64,9 @@ typedef struct s_fractal
 	double			zoom_factor;
 	double			julia_real;
 	double			julia_imaginary;
+	double			random_color;
 	int				fractal_type;
+	int				random_flag;
 	void			*mlx;
 	void			*win;
 	void			*img;
